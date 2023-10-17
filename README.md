@@ -1,3 +1,5 @@
+Trying to learn Nextjs 13 New Features
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
