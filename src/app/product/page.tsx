@@ -17,7 +17,7 @@ export default async function ProductPage(props: ProductPageProps) {
           <Link
             href={`/product/detail/${product.id}`}
             key={product.id}
-            className="w-full max-w-sm my-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="w-11/12 max-w-sm my-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
             <img
               className="object-cover w-full p-8 rounded-t-lg h-96"
@@ -26,13 +26,16 @@ export default async function ProductPage(props: ProductPageProps) {
             />
 
             <div className="px-5 pb-5">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 truncate dark:text-white">
-                {product.title}
+              <h5 className="text-xl mb-4 font-semibold tracking-tight text-gray-900 truncate dark:text-white">
+                {product.name}
               </h5>
 
               <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  ${product.price}
+                <span className="text-lg font-bold text-gray-900 dark:text-white">
+                  {product.price.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
                 </span>
                 <button
                   type="button"

@@ -1,35 +1,36 @@
+import { retriveData, retriveDataById } from "@/lib/firebase/service";
 import { NextRequest, NextResponse } from "next/server";
 
 const data = [
   {
     id: 1,
-    title: "Product 1",
-    price: 100000,
-    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/92dd96ba-7653-4f93-86bf-01e41c7490eb/zoom-vomero-5-shoes-KxjTbk.png"
+    title: "Nike Mercurial Vapor 15 Academy",
+    price: 1279000,
+    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/04afe781-1619-4957-bc77-12c26e1e3b25/mercurial-vapor-15-academy-indoor-court-football-shoes-kjqhHM.png"
   },
   {
     id: 2,
-    title: "Product 2",
-    price: 200000,
-    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/21c3babe-60fb-46fb-8327-319c21107f37/air-max-1-shoes-h0SzNM.png"
+    title: "Nike Waffle Debut",
+    price: 1149000,
+    image: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b3d516c8-4838-46ec-8169-bace2b99298a/waffle-debut-shoes-SGn7tB.png"
   },
   {
     id: 3,
-    title: "Product 3",
-    price: 300000,
-    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/63c3d532-d82f-4dfd-ac86-5e0eea991a7b/air-jordan-1-low-shoes-6Q1tFM.png"
+    title: `Nike Pegasus 40 "Eliud Kipchoge"`,
+    price: 2099000,
+    image: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7ff2e824-a8e5-482a-aedf-8a7604c0a401/pegasus-40-eliud-kipchoge-road-running-shoes-cRbXTK.png"
   },
   {
     id: 4,
-    title: "Product 4",
-    price: 400000,
-    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a576a457-055e-40ff-911d-f148529e97e2/air-jordan-1-low-se-shoes-KKFsH5.png"
+    title: "Nike Zoom Mercurial Vapor 15 Academy KM MG",
+    price: 1379000,
+    image: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/43ad888e-1305-437a-abbf-5f888a31daca/zoom-mercurial-vapor-15-academy-km-mg-multi-ground-football-boot-9m3LDc.png"
   },
   {
     id: 5,
-    title: "Product 5",
-    price: 500000,
-    image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e3d0c449-a732-4b11-9430-c80fd3cbf2fd/air-jordan-1-low-se-shoes-fQgpsv.png"
+    title: "Giannis Immortality 2",
+    price: 1149000,
+    image: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/818b1b8f-31de-4af5-873f-b012c1d6d700/giannis-immortality-2-basketball-shoes-vBxGdT.png"
   }
 ]
 
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get("id")
 
   if (id) {
-    const detailProduct = data.find((item) => item.id === Number(id))
+    const detailProduct = await retriveDataById("products", id)
     if (detailProduct) {
       return (
         NextResponse.json({
@@ -52,11 +53,14 @@ export async function GET(request: NextRequest) {
       message: "Not Found"
     })
   }
+
+  const products = await retriveData("products")
+
   return (
     NextResponse.json({
       status: 200,
       message: "Success",
-      data: data
+      data: products
     })
   )
 
