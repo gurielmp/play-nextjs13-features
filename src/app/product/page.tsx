@@ -1,4 +1,5 @@
 import { getData } from "@/services/products"
+import Image from "next/image"
 import Link from "next/link"
 
 type ProductPageProps = {
@@ -10,7 +11,7 @@ export default async function ProductPage(props: ProductPageProps) {
   const products = await getData("http://localhost:3000/api/product")
 
   return (
-    <div className="grid grid-cols-3 mt-5 place-items-center">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-5 place-items-center">
       {/* <h1>{params.slug ? "Detail Product" : "Product Page"}</h1> */}
       {products.data.length > 0 &&
         products.data.map((product: any) => (
@@ -19,10 +20,12 @@ export default async function ProductPage(props: ProductPageProps) {
             key={product.id}
             className="w-11/12 max-w-sm my-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
-            <img
+            <Image
               className="object-cover w-full p-8 rounded-t-lg h-96"
               src={product.image}
               alt="product image"
+              width={500}
+              height={500}
             />
 
             <div className="px-5 pb-5">
