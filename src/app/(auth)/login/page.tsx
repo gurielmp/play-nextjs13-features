@@ -1,17 +1,28 @@
 "use client"
 
+import { signIn } from "next-auth/react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
-  const handleLogin = (e: any) => {
+  const { push } = useRouter()
+  const handleLogin = async (e: any) => {
     e.preventDefault()
-    fetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
         email: e.currentTarget.email.value,
         password: e.currentTarget.password.value,
-      }),
-    })
+        callbackUrl: "/dashboard",
+      })
+      if (!res?.error) {
+        push("/dashboard")
+      } else {
+        console.log(res.error)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
