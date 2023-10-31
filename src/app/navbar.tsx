@@ -5,12 +5,11 @@ import { usePathname, useRouter } from "next/navigation"
 export default function Navbar() {
   const pathName = usePathname()
   const router = useRouter()
-  const { status }: { status: string } = useSession()
+  const { data: session, status }: { data: any; status: string } = useSession()
   return (
     <nav className="flex bg-gray-800 py-4 px-5 justify-between">
       <div className="flex">
-        <h1 className="text-white">Navbar</h1>
-        <ul className="flex ml-5">
+        <ul className="flex">
           <Link href="/">
             <li
               className={`mr-4 ${
@@ -42,12 +41,15 @@ export default function Navbar() {
       </div>
       <div>
         {status === "authenticated" ? (
-          <button
-            className="bg-white px-3 py-1 rounded-md cursor-pointer text-sm"
-            onClick={() => signOut()}
-          >
-            Logout
-          </button>
+          <div className="flex">
+            <h4 className="text-white mr-3">{session?.user?.fullname}</h4>
+            <button
+              className="bg-white px-3 py-1 rounded-md cursor-pointer text-sm"
+              onClick={() => signOut()}
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <button
             className="bg-white px-3 py-1 rounded-md cursor-pointer text-sm"
