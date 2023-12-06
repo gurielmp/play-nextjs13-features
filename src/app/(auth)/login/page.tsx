@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export default function Login() {
+export default function Login({ searchParams }: any) {
   const { push } = useRouter()
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +23,7 @@ export default function Login() {
       if (!res?.error) {
         e.target.reset()
         setIsLoading(false)
-        push("/dashboard")
+        push(searchParams.callbackUrl)
       } else {
         setIsLoading(false)
         if (res.status === 401) {
