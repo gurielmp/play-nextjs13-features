@@ -8,5 +8,5 @@ export function mainMiddleware(request: NextRequest) {
 }
 
 export default withAuth(
-  mainMiddleware, ["/dashboard"]
+  mainMiddleware, ["/dashboard", "/profile"]
 )
